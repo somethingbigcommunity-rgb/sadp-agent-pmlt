@@ -1,0 +1,33 @@
+version: 2
+models:
+  - name: work_cycle_stations
+    description: ""
+    columns:
+      - name: station_id
+        description: ""
+      - name: is_installed
+        description: ""
+      - name: latitude
+        description: ""
+      - name: is_locked
+        description: ""
+      - name: longitude
+        description: ""
+      - name: station_name
+        description: ""
+      - name: count_bike
+        description: ""
+      - name: count_docks
+        description: ""
+      - name: count_empty_docks
+        description: ""
+      - name: is_temporary
+        description: ""
+      - name: terminal_name
+        description: ""
+      - name: install_date
+        description: ""
+      - name: removal_date
+        description: ""
+      - name: station_area
+        description: "Area in which the station is located"

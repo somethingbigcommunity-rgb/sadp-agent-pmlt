@@ -1,0 +1,21 @@
+name: pr-open
+on:
+  pull_request:
+    paths-ignore:
+      - .github/workflows/**
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
+
+# redefining permissions removes the defaults
+permissions:
+  contents: read # still allow checking out the repo
+  id-token: write # use oidc to exchange github token for gcp service account
+
+jobs:
+  product-pull-request:
+    name: PR
+    uses: kering-data-platform/data-platform-ci_workflows/.github/workflows/product-pr.yml@v1-latest
+    secrets: inherit # allows reusing org-wide secrets

@@ -1,0 +1,21 @@
+name: apply-permissions
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  # run after each "merge" workflow is completed
+  workflow_run:
+    workflows: ["merge"]
+    types:
+      - completed
+
+# redefining permissions removes the defaults
+permissions:
+  contents: read # still allow checking out the repo
+  id-token: write # use oidc to exchange github token for gcp service account
+
+jobs:
+  apply-permissions:
+    name: Apply Permissions
+    uses: kering-data-platform/data-platform-ci_workflows/.github/workflows/apply-permissions.yml@v1-latest
+    secrets: inherit # allows reusing org-wide secrets

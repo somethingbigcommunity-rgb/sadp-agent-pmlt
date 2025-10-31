@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: weekly_trips_per_area
+    # we are calling here a doc block from a markdown file of the dbt project.
+    # Here this doc block is located in `public_doc.md`
+    description: '{{ doc("weekly_trips_per_area") }}'
+    columns:
+      - name: skey
+        description: ""
+        tests:
+          - not_null
+          - unique
+      - name: rental_week
+        description: ""
+      - name: start_area
+        description: ""
+        tests:
+          # testing if the value is one of the areas we are interested in
+          # THIS WILL FAIL but shown as an example
+          - accepted_values:
+              name: failing_on_purpose
+              values: ["Fitzrovia", "Fulham", "Farringdon", "Finsbury"]
+              config:
+                severity: warn
+      - name: count_rental
+        description: ""
+      - name: avg_duration_in_s
+        description: ""

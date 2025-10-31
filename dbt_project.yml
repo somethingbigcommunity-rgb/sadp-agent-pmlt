@@ -1,0 +1,53 @@
+config-version: 2
+
+name: <product_name>
+version: 0.1.0
+profile: data_product
+require-dbt-version: [">=1.9.0","<1.10.0"]
+
+flags:
+  state_modified_compare_more_unrendered_values: true
+  send_anonymous_usage_stats: false
+
+model-paths:
+  - "dbt/models"
+macro-paths:
+  - "dbt/macros"
+analysis-paths:
+  - "dbt/analyses"
+seed-paths:
+  - "dbt/seeds"
+test-paths:
+  - "dbt/tests"
+target-path: "target"
+packages-install-path: "dbt/dbt_packages"
+
+models:
+  +persist_docs:
+    relation: true
+    columns: true
+  <product_name>:
+    +hours_to_expiration: "{{ 120 if target.name == 'dev' else None }}"
+    +labels:
+      brand: <brand>
+      domain: <domain>
+      environment: "{{ target.name }}"
+
+    landing:
+      +schema: landing
+
+    config:
+      +schema: config
+
+    work:
+      +schema: work
+
+    core:
+      +schema: core
+
+    public:
+      +schema: public
+
+    # Namespace the tutorial models in a custom dataset
+    dbt_tutorial:
+      +schema: dbt_tutorial

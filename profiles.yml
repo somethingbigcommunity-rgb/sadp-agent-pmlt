@@ -1,0 +1,24 @@
+data_product:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: <gcp_project_dev>
+      dataset: "private"
+      location: EU
+      threads: 5
+    test:
+      type: bigquery
+      method: oauth
+      project: <gcp_project_test>
+      dataset: "{{env_var('GITHUB_REF_NAME', default='noref') | replace('/', '_') | replace('-', '_')}}_"
+      location: EU
+      threads: 5
+    prod:
+      type: bigquery
+      method: oauth
+      project: <gcp_project_prod>
+      dataset: "private"
+      location: EU
+      threads: 5

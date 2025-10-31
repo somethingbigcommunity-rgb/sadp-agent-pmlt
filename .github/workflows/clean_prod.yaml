@@ -1,0 +1,25 @@
+name: clean-prod
+on:
+  workflow_dispatch:
+    inputs:
+      command:
+        description: |
+          Command as json to delete BigQuery resource or GCS object.
+          Expected format is {"bq_resource_ids" : ["dataset_1", "dataset_2.table2"], "gcs_uris" : ["gcs://bucket/object"]}.
+          BigQuery resources and GCS objects can be deleted at the same time or individually.
+        required: true
+    branches:
+      - main
+
+# redefining permissions removes the defaults
+permissions:
+  contents: read # still allow checking out the repo
+  id-token: write # use oidc to exchange github token for gcp service account
+
+jobs:
+  clean-prod:
+    name: Clean Prod
+    uses: kering-data-platform/data-platform-ci_workflows/.github/workflows/clean-prod.yml@v1-latest
+    with:
+      command: ${{ inputs.command }}
+    secrets: inherit # allows reusing org-wide secrets

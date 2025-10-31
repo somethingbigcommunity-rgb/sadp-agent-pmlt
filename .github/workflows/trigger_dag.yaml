@@ -1,0 +1,24 @@
+name: trigger-dag
+on:
+  workflow_dispatch:
+    branches:
+      - main
+    inputs:
+      full_refresh:
+        description: Trigger dbt in full-refresh mode
+        type: boolean
+      extra_parameters:
+        description: Json string containing extra dbt parameters
+        type: string
+permissions:
+  contents: read # still allow checking out the repo
+  id-token: write # use oidc to exchange github token for gcp service account
+
+jobs:
+  trigger-dag:
+    name: Trigger Dag
+    uses: kering-data-platform/data-platform-ci_workflows/.github/workflows/trigger-dag.yml@v1-latest
+    secrets: inherit # allows reusing org-wide secrets
+    with:
+      full_refresh: ${{ inputs.full_refresh }}
+      extra_parameters: ${{ inputs.extra_parameters }}

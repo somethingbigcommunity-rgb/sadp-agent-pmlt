@@ -1,0 +1,5 @@
+packages:
+  - package: dbt-labs/dbt_utils
+    version: 1.0.0
+  - git: "{{ env_var('DBTPKG_SCHEMA_NAME_REPO', 'https://github.com/kering-data-platform/dbtpkg-dpu_schema_name') }}"
+    revision: v0.2.0

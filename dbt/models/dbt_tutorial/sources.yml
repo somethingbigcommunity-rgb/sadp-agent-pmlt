@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  # one source name is a unique combination of a schema and a database
+  # if you want you can split also your sources by database
+  # Another source could be referenced after
+  # name of the source. This will be used to call a source table in the models themselves
+  - name: london_bicycles
+    # name of the source database (this is a project id)
+    database: bigquery-public-data
+    # name of the source dataset on bigquery
+    schema: london_bicycles
+    # source description, this will show in the dbt docs
+    description: "[Public London bicycle data](https://console.cloud.google.com/marketplace/product/greater-london-authority/london-bicycles)"
+    tables:
+      # name of the table in the GCP project
+      - name: cycle_hire
+      - name: cycle_stations

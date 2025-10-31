@@ -1,0 +1,19 @@
+name: dbt-docs
+on:
+  workflow_dispatch:
+    branches:
+      - main
+  schedule:
+    # Note: * is a special character in YAML, so you have to quote this string.
+    - cron: "30 6 * * *"
+
+permissions:
+  contents: read # still allow checking out the repo
+  pages: write # allow publishing docs
+  id-token: write # use oidc to exchange github token for gcp service account
+
+jobs:
+  dbt-docs:
+    name: Build & Deploy dbt docs
+    uses: kering-data-platform/data-platform-ci_workflows/.github/workflows/dbt-docs.yml@v1-latest
+    secrets: inherit # allows reusing org-wide secrets
