@@ -1,6 +1,6 @@
 config-version: 2
 
-name: <product_name>
+name: sales
 version: 0.1.0
 profile: data_product
 require-dbt-version: [">=1.9.0","<1.10.0"]
@@ -26,11 +26,11 @@ models:
   +persist_docs:
     relation: true
     columns: true
-  <product_name>:
+  sales:
     +hours_to_expiration: "{{ 120 if target.name == 'dev' else None }}"
     +labels:
-      brand: <brand>
-      domain: <domain>
+      brand: pom
+      domain: sales
       environment: "{{ target.name }}"
 
     landing:
